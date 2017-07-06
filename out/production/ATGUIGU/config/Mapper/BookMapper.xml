@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lqlsoftware.ATGUIGU.dao.iBookMapper">
+
+    <resultMap  id="bookResultMap" type="Book">
+
+        <id property="id" column="id"/>
+        <result property="author" column="author"/>
+        <result property="title" column="title"/>
+        <result property="price" column="price"/>
+        <result property="publishing_date" column="publishing_date"/>
+        <result property="sales_amount" column="sales_amount"/>
+        <result property="store_number" column="store_number"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <!-- 查询 根据id -->
+    <select id="getBookById" parameterType="String" resultType="Book" resultMap="bookResultMap">
+        <![CDATA[
+            SELECT *
+            FROM book
+            WHERE id = #{id}
+        ]]>
+    </select>
+
+    <!-- 更新 -->
+    <update id="updateBook" parameterType="Book">
+        <![CDATA[
+            UPDATE book
+            SET
+            sales_amount = #{sales_amount},
+            store_number = #{store_number},
+            WHERE id = #{id}
+        ]]>
+    </update>
+</mapper>

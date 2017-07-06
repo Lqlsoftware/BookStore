@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lqlsoftware.ATGUIGU.dao.iTradeItemMapper">
+
+    <resultMap  id="tradeItemResultMap" type="TradeItem">
+
+        <id property="item_id" column="item_id"/>
+        <result property="book_id" column="book_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="trade_id" column="trade_id"/>
+    </resultMap>
+
+    <!-- 查询 根据id -->
+    <select id="getTradeItemByItemId" parameterType="String" resultType="TradeItem" resultMap="tradeItemResultMap">
+        <![CDATA[
+            SELECT *
+            FROM trade_item
+            WHERE item_id = #{item_id}
+        ]]>
+    </select>
+
+    <!-- 查询 根据name -->
+    <select id="getTradeItemByTradeId" parameterType="String" resultType="TradeItem" resultMap="tradeItemResultMap">
+        <![CDATA[
+            SELECT *
+            FROM trade_item
+            WHERE trade_id = #{trade_id}
+        ]]>
+    </select>
+
+    <!-- 插入 -->
+    <insert id="insertTradeItem" parameterType="TradeItem" useGeneratedKeys="true">
+        <![CDATA[
+            INSERT
+            INTO trade_item
+            (book_id, quantity, trade_id)VALUES
+            (#{book_id}, #{quantity}, #{trade_id})
+        ]]>
+    </insert>
+</mapper>

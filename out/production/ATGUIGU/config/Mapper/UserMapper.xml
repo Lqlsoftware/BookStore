@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lqlsoftware.ATGUIGU.dao.iUserMapper">
+
+    <resultMap  id="userResultMap" type="User">
+
+        <id property="user_id" column="user_id" />
+        <result property="user_name" column="user_name"/>
+        <result property="login_name" column="login_name"/>
+        <result property="password" column="password"/>
+        <result property="account_id" column="account_id"/>
+    </resultMap>
+
+    <!-- 查询 根据id -->
+    <select id="getUserById" parameterType="String" resultType="User" resultMap="userResultMap">
+        <![CDATA[
+            SELECT *
+            FROM user
+            WHERE user_id = #{user_id}
+        ]]>
+    </select>
+
+    <!-- 查询 根据name -->
+    <select id="getUserByName" parameterType="String" resultType="User" resultMap="userResultMap">
+        <![CDATA[
+            SELECT *
+            FROM user
+            WHERE login_name = #{login_name}
+        ]]>
+    </select>
+</mapper>

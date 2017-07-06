@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lqlsoftware.ATGUIGU.dao.iTradeMapper">
+
+    <resultMap  id="tradeResultMap" type="Trade">
+
+        <id property="trade_id" column="trade_id" />
+        <result property="user_id" column="user_id"/>
+        <result property="trade_time" column="trade_time"/>
+    </resultMap>
+
+    <!-- 查询 根据id -->
+    <select id="getTradeByUserId" parameterType="String" resultType="Trade" resultMap="tradeResultMap">
+        <![CDATA[
+            SELECT *
+            FROM trade
+            WHERE user_id = #{user_id}
+        ]]>
+    </select>
+
+    <!-- 查询 根据name -->
+    <select id="getTradeById" parameterType="String" resultType="Trade" resultMap="tradeResultMap">
+        <![CDATA[
+            SELECT *
+            FROM trade
+            WHERE trade_id = #{trade_id}
+        ]]>
+    </select>
+
+    <!-- 插入 -->
+    <insert id="insertTrade" parameterType="Trade" useGeneratedKeys="true">
+        <![CDATA[
+            INSERT
+            INTO trade
+            (user_id, trade_time)VALUES
+            (#{user_id}, #{trade_time})
+        ]]>
+    </insert>
+</mapper>

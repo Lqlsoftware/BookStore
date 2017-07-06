@@ -35,10 +35,6 @@ public class UserController {
 		request.setCharacterEncoding("UTF-8");
 		response.setHeader("content-type", "xml;charset=UTF-8");
 
-		// 返回的JSON
-		JSONObject msg = new JSONObject();
-		JSONObject data = new JSONObject();
-
 		// parameter
 		String login_name = request.getParameter("login_name");
 		String password = request.getParameter("password");

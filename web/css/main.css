@@ -1,0 +1,23 @@
+.vertical {
+    display: inline-block;
+    width: 5%;
+}
+.horizon {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 10px;
+    margin-left: 35px;
+    width: 20%;
+}
+.book {
+    margin-top: 10px;
+}
+.page {
+    margin-bottom: 10px;
+    bottom: 10%;
+    position: absolute;
+    width: 100%;
+}
+.logo {
+    margin-top: 10%;
+}

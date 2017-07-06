@@ -60,7 +60,7 @@ public class BookController {
         data.put("queryList", JSON.toJSON(list));
         data.put("pageNo", pageNo);
         data.put("pageSize", pageSize);
-        data.put("pageTotal", totalNum % pageSize);
+        data.put("pageTotal", totalNum / pageSize + 1);
         data.put("isLast", list.size() != pageSize || totalNum == pageNo * pageSize ? true : false);
         msg.put("code", 1);
         msg.put("data", data);

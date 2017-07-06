@@ -57,11 +57,11 @@ public class BookController {
 
         List<Book> list = bookMapper.getBookByRowNum((pageNo - 1) * pageSize, pageSize);
 
-        data.put("queryList", JSON.toJSON(list));
+        data.put("queryList", JSONArray.toJSON(list));
         data.put("pageNo", pageNo);
         data.put("pageSize", pageSize);
         data.put("pageTotal", totalNum / pageSize + 1);
-        data.put("isLast", list.size() != pageSize || totalNum == pageNo * pageSize ? true : false);
+        data.put("isLast", list.size() != pageSize || totalNum == pageNo * pageSize ? 1 : 0);
         msg.put("code", 1);
         msg.put("data", data);
         msg.put("errMsg", "");

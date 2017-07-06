@@ -33,4 +33,22 @@
             WHERE id = #{id}
         ]]>
     </update>
+
+    <!-- 查询 书目总数 -->
+    <select id="getTotalNum" resultType="Integer">
+        <![CDATA[
+            SELECT COUNT(*)
+            FROM book
+        ]]>
+    </select>
+
+    <!-- 查询 范围书目 -->
+    <select id="getBookByRowNum" parameterType="Integer" resultType="Book" resultMap="bookResultMap">
+        <![CDATA[
+            SELECT *
+            FROM book
+            LIMIT #{param1}, #{param2}
+        ]]>
+    </select>
+
 </mapper>

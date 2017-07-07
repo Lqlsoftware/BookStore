@@ -16,4 +16,8 @@ public interface iBookMapper {
     public Integer getTotalNum();
 
     public List<Book> getBookByRowNum(Integer fromNum, Integer pageSize);
+
+    public Integer getTotalByPrice(Integer from, Integer to);
+
+    public List<Book> getBookByPrice(Integer from, Integer to, Integer fromNum, Integer pageSize);
 }

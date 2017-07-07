@@ -17,18 +17,25 @@
     <script src="js/jquery.js"></script>
     <script src="js/main.js"></script>
     <link rel="stylesheet" href="css/main.css" type="text/css">
-    <!--webfonts-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <!--//webfonts-->
 </head>
 <body>
 <h1 class="logo" align="center">Book Mall</h1>
 <div class="container">
+    <div class="cart" align="center">
+        <div class="tip"></div>
+        <div class="mycart"></div>
+    </div>
+    <div class="search" align="center">
+        Price
+        <input id="from" type="number"> - <input id="to" type="number">
+        <button class="searchbtn">查找</button>
+    </div>
     <div class="books" align="center"></div>
     <div class="page" align="center">
         <div class="select"></div>
         <div class="total"></div>
     </div>
+    <div class="cover" align="center"></div>
 </div>
 </body>
 </html>

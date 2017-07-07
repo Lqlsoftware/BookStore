@@ -51,4 +51,21 @@
         ]]>
     </select>
 
+    <select id="getTotalByPrice" parameterType="Integer" resultType="Integer">
+        <![CDATA[
+            SELECT COUNT(*)
+            FROM book
+            WHERE price>=#{param1} AND price<=#{param2}
+        ]]>
+    </select>
+
+    <select id="getBookByPrice" parameterType="Integer" resultType="Book" resultMap="bookResultMap">
+        <![CDATA[
+            SELECT *
+            FROM book
+            WHERE price>=#{param1} AND price<=#{param2}
+            LIMIT #{param3}, #{param4}
+        ]]>
+    </select>
+
 </mapper>

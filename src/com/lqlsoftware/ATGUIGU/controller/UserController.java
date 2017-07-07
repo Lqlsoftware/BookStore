@@ -155,7 +155,7 @@ public class UserController {
         data.put("queryList", JSONArray.toJSON(cart.getList()));
         msg.put("code", 1);
         msg.put("data", data);
-        msg.put("errMsg", "");
+        msg.put("errMsg", (quantity > 0 ? "添加 " : "删除 ") + book.getTitle() + " 成功");
         response.getWriter().write(msg.toString());
         return;
     }

@@ -1,5 +1,58 @@
+input {
+    width: 6%;
+}
+.head {
+    margin-top: 10px;
+}
+.headName {
+    text-align: left;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 3%;
+    width: 10%;
+}
+.headNum {
+    display: inline-block;
+    vertical-align: top;
+    width: 10%;
+}
+.headPrice {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 2%;
+    width: 20%;
+}
+.cartItem {
+    margin-top: 10px;
+}
+.itemName {
+    text-align: left;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 3%;
+    width: 10%;
+}
+.itemNum {
+    display: inline-block;
+    vertical-align: top;
+    width: 10%;
+}
+.itemNum input {
+    width: 60%;
+}
+.itemPrice {
+    text-align: right;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 2%;
+    width: 20%;
+}
+.del {
+    margin-left: 10px;
+}
 .search {
     margin-bottom: 20px;
+    margin-top: 10px;
 }
 .vertical {
     display: inline-block;
@@ -24,16 +77,13 @@
 .logo {
     margin-top: 3%;
 }
-input {
-    width: 6%;
-}
 .inputPageNo {
     width: 4%;
 }
 .cover {
     position: fixed;
-    left: 0;
     top: 10%;
+    left: 0;
     height: 100%;
     width: 100%;
     background-color: rgba(255,255,255,1);

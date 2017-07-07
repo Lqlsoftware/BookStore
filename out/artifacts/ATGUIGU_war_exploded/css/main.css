@@ -1,6 +1,9 @@
 input {
     width: 6%;
 }
+.head {
+    margin-top: 10px;
+}
 .headName {
     text-align: left;
     display: inline-block;

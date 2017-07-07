@@ -6,10 +6,10 @@ var isSearch = false;
 var bookStorge;
 var cartStorge;
 
-$(document).ready(function () {
+$(document).ready(function() {
     getCart();
     getPageList();
-    $('.searchbtn').click(function () {
+    $('.searchbtn').click(function() {
         getSearchPageList();
     });
     $('.cover').hide();
@@ -22,7 +22,8 @@ function procCart(res) {
         $('.tip').append(res.errMsg);
         $('.mycart').empty();
         $('.mycart').append('您的购物车中有' + res.data.num + '件商品 ' +
-        '<button class="checkCart" onclick="getCartInfo();">查看购物车</button>');
+            '<button class="checkCart" onclick="getCartInfo();">查看购物车</button>'
+        );
     }
 }
 
@@ -30,7 +31,7 @@ function getCart() {
     $.ajax({
         type: "GET",
         url: 'getCart',
-        success: function (res) {
+        success: function(res) {
             procCart(res);
         },
         dataType: "json"
@@ -41,7 +42,7 @@ function addToCart(id, num) {
     $.ajax({
         type: "GET",
         url: 'addBooksToCart?id=' + id + '&quantity=' + num,
-        success: function (res) {
+        success: function(res) {
             procCart(res);
         },
         dataType: "json"
@@ -59,7 +60,7 @@ function getCartInfo() {
         '<div class="headNum">数量</div>' +
         '<div class="headPrice">价格</div></div>');
     var body = $('<div class="cart_body"></div>')
-    var footer = $( '<div class="cart_footer">' +
+    var footer = $('<div class="cart_footer">' +
         '<div style="margin-top: 10px;margin-bottom: 10px">总金额: ¥' + cartStorge.total + '</div>' +
         '<button>清空购物车</button>' +
         ' <button>结账</button>' +
@@ -73,8 +74,8 @@ function getCartInfo() {
             '<div class="itemPrice">¥ ' + content.totalMoney +
             ' <button class="del">删除</button></div>'
         );
-        $('#itemNum_' + content.book.id).change(function () {
-            addToCart(content.book.id, this.value - content.ququantity);
+        $('#itemNum_' + content.book.id).change(function() {
+            addToCart(content.book.id, this.value - content.quantity);
         })
         body.append(cartItem);
     });
@@ -104,15 +105,15 @@ function procPage(res) {
         pageTotal = res.data.pageTotal;
         isLast = res.data.isLast;
         $('.books').empty();
-        $.each(res.data.queryList, function(index, content){
-            $('.books').append('<div class="book"><div class="vertical" align="left"><div class="title"><a href="#" onclick="getBookInfo(' + content.id + ');">' + content.title + '</a></div>'
-                + '<div class="author">' + content.author + '</div></div>'
-                + '<div class="horizon">¥' + content.price + ' '
-                + '<button onclick="addToCart(' + content.id + ', 1)">添加至购物车</button></div></div>'
+        $.each(res.data.queryList, function(index, content) {
+            $('.books').append('<div class="book"><div class="vertical" align="left"><div class="title"><a href="#" onclick="getBookInfo(' + content.id + ');">' + content.title + '</a></div>' +
+                '<div class="author">' + content.author + '</div></div>' +
+                '<div class="horizon">¥' + content.price + ' ' +
+                '<button onclick="addToCart(' + content.id + ', 1)">添加至购物车</button></div></div>'
             );
         });
         $('.total').empty();
-        $('.total').append('共 ' + pageTotal + ' 页 当前第 ' + pageNo + ' 页' );
+        $('.total').append('共 ' + pageTotal + ' 页 当前第 ' + pageNo + ' 页');
         $('.select').empty();
         if (pageNo !== 1)
             $('.select').append('<a href="#" onclick="Page(1);">首页</a> <a href="#" onclick="Page(pageNo-1);">上一页</a> ');
@@ -120,7 +121,7 @@ function procPage(res) {
             $('.select').append('<a href="#" onclick="Page(pageNo+1);">下一页</a> <a href="#" onclick="Page(pageTotal);">末页 </a>');
         if (pageTotal !== 1)
             $('.total').append(' 转到 ' + '<input type="number" class="inputPageNo"> 页');
-        $('.inputPageNo').change(function () {
+        $('.inputPageNo').change(function() {
             if (this.value <= pageTotal && this.value > 0 && this.value !== pageNo) {
                 Page(this.value);
             }
@@ -129,7 +130,7 @@ function procPage(res) {
     }
 }
 
-function getPageList () {
+function getPageList() {
     $.ajax({
         type: "GET",
         url: 'getPage?pageNo=' + pageNo + '&pageSize=' + pageSize,
@@ -143,8 +144,8 @@ function getPageList () {
 function getSearchPageList() {
     var from = $('#from').val();
     var to = $('#to').val();
-    if (from === "" || from < 0
-        || to === "")
+    if (from === "" || from < 0 ||
+        to === "")
         return;
     if (isSearch === false)
         pageNo = 1;
@@ -160,7 +161,7 @@ function getSearchPageList() {
 }
 
 function getBookInfo(id) {
-    $.each(bookStorge, function(index, content){
+    $.each(bookStorge, function(index, content) {
         // 找到对应信息
         if (content.id === id) {
             $('.tip').empty();
@@ -168,9 +169,9 @@ function getBookInfo(id) {
             var detail = $('<div class="book_detail"><div class="detail">书名:' + content.title + '</div>' +
                 '<div class="detail">作者:' + content.author + '</div>' +
                 '<div class="detail">单价: ¥' + content.price + '</div>' +
-                '<div class="detail">出版时间: ' + getLocalTime(content.publishing_date) + '</div>'+
+                '<div class="detail">出版时间: ' + getLocalTime(content.publishing_date) + '</div>' +
                 '<div class="detail">库存: ' + content.store_number + '</div>' +
-                '<div class="detail">评论: ' + content.remark + '</div>'+
+                '<div class="detail">评论: ' + content.remark + '</div>' +
                 '<div class="detail"><button onclick="addToCart(' + content.id + ', 1)">添加至购物车</button>' +
                 ' <button onclick="$(\'.cover\').hide()">返回</button></div>' +
                 '</div>');
@@ -181,5 +182,5 @@ function getBookInfo(id) {
 }
 
 function getLocalTime(nS) {
-    return new Date(parseInt(nS)).toLocaleString().replace(/[\u4e00-\u9fa5][\u4e00-\u9fa5]\d{1,2}:\d{1,2}:\d{1,2}$/,' ');
+    return new Date(parseInt(nS)).toLocaleString().replace(/[\u4e00-\u9fa5][\u4e00-\u9fa5]\d{1,2}:\d{1,2}:\d{1,2}$/, ' ');
 }

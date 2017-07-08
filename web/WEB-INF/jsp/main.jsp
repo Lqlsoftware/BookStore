@@ -33,7 +33,7 @@
     <div class="books" align="center"></div>
     <div class="page" align="center">
         <div class="select"></div>
-        <div class="total"></div>
+        <div class="page_total"></div>
     </div>
     <div class="cover" align="center"></div>
 </div>

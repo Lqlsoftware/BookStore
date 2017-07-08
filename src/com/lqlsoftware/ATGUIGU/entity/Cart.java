@@ -1,5 +1,7 @@
 package com.lqlsoftware.ATGUIGU.entity;
 
+import javafx.util.Pair;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -77,4 +79,7 @@ public class Cart {
         return list;
     }
 
+    public Map<Long, CartItem> getBooks() {
+        return Books;
+    }
 }

@@ -1,8 +1,14 @@
 input {
     width: 6%;
 }
-.head {
-    margin-top: 10px;
+.footer {
+    margin-bottom: 10px;
+    bottom: 20%;
+    position: absolute;
+    width: 100%;
+}
+.cart_header {
+    margin-top: 30px;
 }
 .headName {
     text-align: left;
@@ -96,4 +102,20 @@ input {
 }
 .detail {
     margin-top: 10px;
+}
+.pay_detail {
+    margin-top: 10px;
+}
+.pay_error {
+    margin-top: 10px;
+    height: 27%;
+}
+.pay_cardId {
+    margin-top: 10px;
+}
+.pay_userName input {
+    width: 20%;
+}
+.pay_cardId input {
+    width: 20%;
 }

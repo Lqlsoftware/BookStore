@@ -12,5 +12,5 @@ public interface iTradeMapper {
 
     public Trade getTradeById(String trade_id);
 
-    public void insertTrade(Trade trade);
+    public Long insertTrade(Trade trade);
 }

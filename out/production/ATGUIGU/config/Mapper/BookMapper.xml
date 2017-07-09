@@ -29,7 +29,7 @@
             UPDATE book
             SET
             sales_amount = #{sales_amount},
-            store_number = #{store_number},
+            store_number = #{store_number}
             WHERE id = #{id}
         ]]>
     </update>

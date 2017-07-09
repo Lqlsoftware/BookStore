@@ -127,22 +127,24 @@ function pay() {
                 var trade = $('<div class="trade"></div>');
                 var trade_title = $('<div class="trade_title"><h1>账单</h1></div>');
                 var trade_user = $('<div class="trade_user">用户: ' + res.data.user + '</div>');
-                var trade_detail = $('<div class="trade_time">交易时间: ' + res.data.trade_time + '</div>' +
-                    '<div class="trade_money">总计 ¥ ' + res.data.total + '</div>');
+                var trade_detail = $('<div class="trade_time">交易时间: ' + getLocalTime(res.data.trade_time) + '</div>' +
+                    '<div class="trade_money">总计 ¥ ' + res.data.trade_total + '</div>');
+                var trade_body = $('<div class="trade_body"></div>');
                 var trade_head = $('<div><div class="headName">书名</div>' +
                     '<div class="headPrice">单价</div>' +
                     '<div class="headNum">数量</div></div>');
-                trade_detail.append(trade_head);
+                trade_body.append(trade_head);
                 $.each(res.data.queryList, function (index, context) {
-                    trade_detail.append('<div class="itemName">' + context.book.title + '</div>' +
+                    trade_body.append('<div><div class="itemName">' + context.book.title + '</div>' +
                         '<div class="itemPrice">' + context.book.price + '</div>' +
-                        '<div class="itemNum">' + context.quantity + '</div>')
+                        '<div class="itemNum">' + context.quantity + '</div></div>')
                 })
                 var trade_footer = $( '<div class="footer"><button onclick="$(\'.cover\').hide();">返回</button></div>');
 
                 trade.append(trade_title);
                 trade.append(trade_user);
                 trade.append(trade_detail);
+                trade.append(trade_body);
                 trade.append(trade_footer);
                 $('.cover').append(trade);
                 $('.cover').show();

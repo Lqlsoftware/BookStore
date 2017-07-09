@@ -26,7 +26,7 @@
         }
     </script>
     <!--webfonts-->
-    <%--<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700,800' rel='stylesheet' type='text/css'>--%>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <!--//webfonts-->
 </head>
 
@@ -34,7 +34,7 @@
 <div class="app-location">
     <h2>Welcome to Mall</h2>
     <div class="line"><span></span></div>
-    <div class="location"><img src="img/fuckchat.png" class="img-responsive" alt="" /></div>
+    <div class="location"><img src="img/logo.png" class="img-responsive" alt="" /></div>
     <form action="login" method="post">
     <input id="login_name" name="login_name" type="text" class="text" placeholder="ID">
     <input name="password" type="password" placeholder="Password">

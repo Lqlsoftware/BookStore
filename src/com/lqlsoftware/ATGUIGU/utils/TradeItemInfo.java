@@ -1,4 +1,4 @@
-package com.lqlsoftware.ATGUIGU.entity;
+package com.lqlsoftware.ATGUIGU.utils;
 
 /**
  * Created by robinlu on 2017/7/9.

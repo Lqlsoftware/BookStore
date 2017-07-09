@@ -7,6 +7,8 @@ import com.lqlsoftware.ATGUIGU.dao.iBookMapper;
 import com.lqlsoftware.ATGUIGU.dao.iTradeItemMapper;
 import com.lqlsoftware.ATGUIGU.dao.iTradeMapper;
 import com.lqlsoftware.ATGUIGU.entity.*;
+import com.lqlsoftware.ATGUIGU.utils.Cart;
+import com.lqlsoftware.ATGUIGU.utils.CartItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package com.lqlsoftware.ATGUIGU.entity;
+package com.lqlsoftware.ATGUIGU.utils;
 
 import java.util.Date;
 import java.util.concurrent.ConcurrentLinkedDeque;

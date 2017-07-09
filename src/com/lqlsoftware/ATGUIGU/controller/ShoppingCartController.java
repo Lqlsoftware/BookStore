@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.lqlsoftware.ATGUIGU.dao.*;
 import com.lqlsoftware.ATGUIGU.entity.Book;
-import com.lqlsoftware.ATGUIGU.entity.Cart;
+import com.lqlsoftware.ATGUIGU.utils.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

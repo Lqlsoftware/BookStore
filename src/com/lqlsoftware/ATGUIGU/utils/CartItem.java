@@ -1,4 +1,6 @@
-package com.lqlsoftware.ATGUIGU.entity;
+package com.lqlsoftware.ATGUIGU.utils;
+
+import com.lqlsoftware.ATGUIGU.entity.Book;
 
 /**
  * Created by robinlu on 2017/7/7.

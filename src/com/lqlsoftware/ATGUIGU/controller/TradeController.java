@@ -6,6 +6,8 @@ import com.lqlsoftware.ATGUIGU.dao.iBookMapper;
 import com.lqlsoftware.ATGUIGU.dao.iTradeItemMapper;
 import com.lqlsoftware.ATGUIGU.dao.iTradeMapper;
 import com.lqlsoftware.ATGUIGU.entity.*;
+import com.lqlsoftware.ATGUIGU.utils.TradeInfo;
+import com.lqlsoftware.ATGUIGU.utils.TradeItemInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

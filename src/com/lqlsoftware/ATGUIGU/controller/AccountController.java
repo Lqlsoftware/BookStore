@@ -137,14 +137,14 @@ public class AccountController {
         Trade trade = new Trade();
         trade.setTrade_time(new Date());
         trade.setUser_id(user.getUser_id());
-        Long id = tradeMapper.insertTrade(trade);
+        tradeMapper.insertTrade(trade);
 
         for (CartItem values : cart.getBooks().values()) {
             Book book = values.getBook();
 
             TradeItem tradeItem = new TradeItem();
             tradeItem.setBook_id(book.getId());
-            tradeItem.setTrade_id(id);
+            tradeItem.setTrade_id(trade.getTrade_id());
             tradeItem.setQuantity(values.getQuantity().longValue());
             tradeItemMapper.insertTradeItem(tradeItem);
 
@@ -158,11 +158,11 @@ public class AccountController {
 
         msg.put("code", 1);
         msg.put("errMsg", "付款成功");
-        msg.put("data", data);
         data.put("user", user.getUser_name());
         data.put("trade_time", trade.getTrade_time());
         data.put("trade_total", total);
         data.put("queryList", JSONArray.toJSON(cart.getList()));
+        msg.put("data", data);
         response.getWriter().write(msg.toString());
 
         cart.clear();

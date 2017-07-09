@@ -13,7 +13,45 @@ $(document).ready(function () {
         getSearchPageList();
     });
     $('.cover').hide();
+    $('.container').append('<button class="billsbtn" onclick="getBillsInfo();">我的账单</button>');
 });
+
+function getBillsInfo() {
+    $.ajax({
+        type: "GET",
+        url: 'getBills',
+        success: function (res) {
+            if (res.code === 1) {
+                $('.cover').empty();
+                var user = $('<div class="bill_user">用户: ' + res.data.user + '</div>');
+                $('.cover').append(user);
+                var bill = $('<div class="bill"></div>');
+                $.each(res.data.trade, function (index, context) {
+                    var trade = $('<div class="trade"></div>');
+                    var trade_time = $('<div class="bill_time">交易时间: ' + getLocalTime(context.trade_time, 1) + '</div>');
+                    var trade_body = $('<div class="trade_body"></div>');
+                    var trade_head = $('<div><div class="headName">书名</div>' +
+                        '<div class="Price">单价</div>' +
+                        '<div class="headNum">数量</div></div>');
+                    trade_body.append(trade_head);
+                    $.each(context.collection, function (index, info) {
+                        trade_body.append('<div><div class="itemName">' + info.title + '</div>' +
+                            '<div class="Price"> ¥ ' + info.price + '</div>' +
+                            '<div class="itemNum">' + info.quantity + '</div></div>')
+                    })
+                    trade.append(trade_time);
+                    trade.append(trade_body);
+                    bill.append(trade);
+                })
+                var trade_footer = $( '<div class="footer"><button onclick="$(\'.cover\').hide();">返回</button></div>');
+                $('.cover').append(bill);
+                $('.cover').append(trade_footer);
+                $('.cover').show();
+            }
+        },
+        dataType: "json"
+    })
+}
 
 function procCart(res, code) {
     if (res.code === 1) {
@@ -22,7 +60,8 @@ function procCart(res, code) {
         $('.tip').append(res.errMsg);
         $('.mycart').empty();
         $('.mycart').append('您的购物车中有' + res.data.num + '件商品 ' +
-        '<button class="checkCart" onclick="getCartInfo();">查看购物车</button>');
+            '<button class="checkCart" onclick="getCartInfo();">查看购物车</button> '
+        );
         if (code === 1)
             getCartInfo();
         else if (code === 2) {
@@ -127,19 +166,19 @@ function pay() {
                 var trade = $('<div class="trade"></div>');
                 var trade_title = $('<div class="trade_title"><h1>账单</h1></div>');
                 var trade_user = $('<div class="trade_user">用户: ' + res.data.user + '</div>');
-                var trade_detail = $('<div class="trade_time">交易时间: ' + getLocalTime(res.data.trade_time) + '</div>' +
+                var trade_detail = $('<div class="trade_time">交易时间: ' + getLocalTime(res.data.trade_time, 1) + '</div>' +
                     '<div class="trade_money">总计 ¥ ' + res.data.trade_total + '</div>');
                 var trade_body = $('<div class="trade_body"></div>');
                 var trade_head = $('<div><div class="headName">书名</div>' +
-                    '<div class="headPrice">单价</div>' +
+                    '<div class="Price">单价</div>' +
                     '<div class="headNum">数量</div></div>');
                 trade_body.append(trade_head);
                 $.each(res.data.queryList, function (index, context) {
                     trade_body.append('<div><div class="itemName">' + context.book.title + '</div>' +
-                        '<div class="itemPrice">' + context.book.price + '</div>' +
+                        '<div class="Price"> ¥ ' + context.book.price + '</div>' +
                         '<div class="itemNum">' + context.quantity + '</div></div>')
                 })
-                var trade_footer = $( '<div class="footer"><button onclick="$(\'.cover\').hide();">返回</button></div>');
+                var trade_footer = $( '<div class="footer"><button onclick="$(\'.cover\').hide();getCart();">返回</button></div>');
 
                 trade.append(trade_title);
                 trade.append(trade_user);
@@ -197,7 +236,8 @@ function procPage(res) {
         isLast = res.data.isLast;
         $('.books').empty();
         $.each(res.data.queryList, function(index, content){
-            $('.books').append('<div class="book"><div class="vertical" align="left"><div class="title"><a href="#" onclick="getBookInfo(' + content.id + ');">' + content.title + '</a></div>'
+            $('.books').append('<div class="book"><div class="vertical" align="left">' +
+                '<div class="title"><a href="#" onclick="getBookInfo(' + content.id + ');">' + content.title + '</a></div>'
                 + '<div class="author">' + content.author + '</div></div>'
                 + '<div class="horizon">¥' + content.price + ' '
                 + '<button onclick="addToCart(' + content.id + ', 1)">添加至购物车</button></div></div>'
@@ -261,7 +301,7 @@ function getBookInfo(id) {
             var detail = $('<div class="book_detail"><div class="detail">书名:' + content.title + '</div>' +
                 '<div class="detail">作者:' + content.author + '</div>' +
                 '<div class="detail">单价: ¥' + content.price + '</div>' +
-                '<div class="detail">出版时间: ' + getLocalTime(content.publishing_date) + '</div>'+
+                '<div class="detail">出版时间: ' + getLocalTime(content.publishing_date, 0) + '</div>'+
                 '<div class="detail">库存: ' + content.store_number + '</div>' +
                 '<div class="detail">评论: ' + content.remark + '</div>'+
                 '<div class="footer"><button onclick="addToCart(' + content.id + ', 1)">添加至购物车</button>' +
@@ -274,6 +314,9 @@ function getBookInfo(id) {
     });
 }
 
-function getLocalTime(nS) {
-    return new Date(parseInt(nS)).toLocaleString().replace(/[\u4e00-\u9fa5][\u4e00-\u9fa5]\d{1,2}:\d{1,2}:\d{1,2}$/,' ');
+function getLocalTime(nS, code) {
+    if (code === 0)
+        return new Date(parseInt(nS)).toLocaleString().replace(/[\u4e00-\u9fa5][\u4e00-\u9fa5]\d{1,2}:\d{1,2}:\d{1,2}$/,' ');
+    else if (code === 1)
+        return new Date(parseInt(nS)).toLocaleString();
 }

@@ -28,7 +28,7 @@
     </select>
 
     <!-- 插入 -->
-    <insert id="insertTrade" parameterType="Trade" useGeneratedKeys="true" keyProperty="trade_id">
+    <insert id="insertTrade" parameterType="Trade"  keyProperty="trade_id" useGeneratedKeys="true">
         <![CDATA[
             INSERT
             INTO trade

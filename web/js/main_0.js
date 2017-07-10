@@ -1,5 +1,5 @@
 var pageNo = 1;
-var pageSize = 7;
+var pageSize = 9;
 var pageTotal;
 var isLast;
 var isSearch = false;
@@ -7,13 +7,51 @@ var bookStorge;
 var cartStorge;
 
 $(document).ready(function () {
+    $('.navSearch').append('<input type="text">');
+    $('.mycart').append('<img class="cartImg" src="img/cart.png"><p class="checkCart" ></p>');
     getCart();
     getPageList();
     $('.searchbtn').click(function () {
         getSearchPageList();
     });
     $('.cover').hide();
-    $('.container').append('<button class="billsbtn" onclick="getBillsInfo();">我的账单</button>');
+    $('.container').append('<div class="billsbtn" onclick="getBillsInfo();"><p>账单</p></div>');
+    $('.mycart').on("mouseenter", function () {
+        $('.mycart').css({
+            "background-color": "#057549"
+        })
+    })
+    $('.mycart').on("mouseleave", function () {
+        $('.mycart').css({
+            "background-color": "#0bd38a"
+        })
+    })
+    $('.mycart').click(function () {
+        getCartInfo();
+    })
+    $('.logo').click(function () {
+        $('.cover').hide();
+    })
+    $('.logo').on("mouseenter", function () {
+        $('.logo').css({
+            "background-color": "#057549"
+        })
+    })
+    $('.logo').on("mouseleave", function () {
+        $('.logo').css({
+            "background-color": "#0bd38a"
+        })
+    })
+    $('.billsbtn').on("mouseenter", function () {
+        $('.billsbtn').css({
+            "background-color": "#057549"
+        })
+    })
+    $('.billsbtn').on("mouseleave", function () {
+        $('.billsbtn').css({
+            "background-color": "#0bd38a"
+        })
+    })
 });
 
 function getBillsInfo() {
@@ -56,17 +94,27 @@ function getBillsInfo() {
 function procCart(res, code) {
     if (res.code === 1) {
         cartStorge = res.data;
-        $('.tip').empty();
-        $('.tip').append(res.errMsg);
-        $('.mycart').empty();
-        $('.mycart').append('您的购物车中有' + res.data.num + '件商品 ' +
-            '<button class="checkCart" onclick="getCartInfo();">查看购物车</button> '
-        );
+        var tip = $('<div class="tip"></div>');
+        if ($('.tip') !== undefined)
+            $('.tip').remove();
+        if (res.errMsg !== "") {
+            tip.append('<div class="tip_u"></div><div class="tip_d"></div>' +
+                '<div class="cartMsg">' + res.errMsg + '</div>');
+            $('body').append(tip);
+            $('.tip_d').css({
+                "top": $('.tip_u').height() + $('.cartMsg').height()
+            })
+            tip.fadeOut(2000, function () {
+                tip.remove();
+            });
+        }
+        $('.checkCart').empty();
+        $('.checkCart').append(res.data.num);
         if (code === 1)
             getCartInfo();
         else if (code === 2) {
             $('.total').empty();
-            $('.total').append('您的购物车中有' + res.data.num + '件商品');
+            $('.total').append(res.data.num);
         }
     }
 }
@@ -120,15 +168,14 @@ function clearCart() {
 function getCartInfo() {
     $('.cover').empty();
     var detail = $('<div class="cart_detail"></div>');
-    var total = $('<div class="total">您的购物车中有' + cartStorge.num + '件商品</div>')
     var header = $('<div class="cart_header"><div class="headName">书名</div>' +
         '<div class="headNum">数量</div>' +
         '<div class="headPrice">价格</div></div>');
     var body = $('<div class="cart_body"></div>')
     var footer = $( '<div class="footer">' +
-        '<div style="margin-top: 10px;margin-bottom: 10px">总金额: ¥' + cartStorge.total + '</div>' +
-        '<button onclick="clearCart();">清空购物车</button>' +
-        ' <button onclick="getPay();">结账</button>' +
+        '<div class="footer_total">总金额: ¥' + cartStorge.total + '</div>' +
+        '<button onclick="getPay();">结账</button>' +
+        ' <button onclick="clearCart();">清空购物车</button>' +
         ' <button onclick="$(\'.cover\').hide();">返回</button></div>')
 
     $.each(cartStorge.queryList, function(index, content) {
@@ -141,7 +188,6 @@ function getCartInfo() {
         );
         body.append(cartItem);
     });
-    detail.append(total);
     detail.append(header);
     detail.append(body);
     detail.append(footer);
@@ -187,7 +233,7 @@ function pay() {
                 trade.append(trade_footer);
                 $('.cover').append(trade);
                 $('.cover').show();
-
+                getCart();
             }
         },
         dataType: "json"
@@ -236,22 +282,23 @@ function procPage(res) {
         isLast = res.data.isLast;
         $('.books').empty();
         $.each(res.data.queryList, function(index, content){
-            $('.books').append('<div class="book"><div class="vertical" align="left">' +
-                '<div class="title"><a href="#" onclick="getBookInfo(' + content.id + ');">' + content.title + '</a></div>'
-                + '<div class="author">' + content.author + '</div></div>'
-                + '<div class="horizon">¥' + content.price + ' '
-                + '<button onclick="addToCart(' + content.id + ', 1)">添加至购物车</button></div></div>'
+            $('.books').append('<div class="book">'
+                + '<div class="title" onclick="getBookInfo(' + content.id + ');">'
+                + content.title + '</div>'
+                + '<div class="author">' + content.author + '</div>'
+                + '<div class="book_price">¥' + content.price + '</div>'
+                + '<div class="book_btn" onclick="addToCart(' + content.id + ', 1)">添加至购物车</div></div>'
             );
         });
         $('.page_total').empty();
         $('.page_total').append('共 ' + pageTotal + ' 页 当前第 ' + pageNo + ' 页' );
         $('.select').empty();
         if (pageNo !== 1)
-            $('.select').append('<a href="#" onclick="Page(1);">首页</a> <a href="#" onclick="Page(pageNo-1);">上一页</a> ');
+            $('.select').append('<div onclick="Page(1);">首页</div> <div onclick="Page(pageNo-1);">上一页</div> ');
         if (pageNo !== pageTotal)
-            $('.select').append('<a href="#" onclick="Page(pageNo+1);">下一页</a> <a href="#" onclick="Page(pageTotal);">末页 </a>');
+            $('.select').append('<div onclick="Page(pageNo+1);">下一页</div> <div onclick="Page(pageTotal);">末页 </div>');
         if (pageTotal !== 1)
-            $('.page_total').append(' 转到 ' + '<input type="number" class="inputPageNo"> 页');
+            $('.page_total').append(' 转到 ' + '<input type="tel" class="inputPageNo"> 页');
         $('.inputPageNo').change(function () {
             if (this.value <= pageTotal && this.value > 0 && this.value !== pageNo) {
                 Page(this.value);
@@ -295,19 +342,17 @@ function getBookInfo(id) {
     $.each(bookStorge, function(index, content){
         // 找到对应信息
         if (content.id === id) {
-            var total = $('<div class="total">您的购物车中有' + cartStorge.num + '件商品</div>')
             $('.tip').empty();
             $('.cover').empty();
-            var detail = $('<div class="book_detail"><div class="detail">书名:' + content.title + '</div>' +
-                '<div class="detail">作者:' + content.author + '</div>' +
-                '<div class="detail">单价: ¥' + content.price + '</div>' +
-                '<div class="detail">出版时间: ' + getLocalTime(content.publishing_date, 0) + '</div>'+
-                '<div class="detail">库存: ' + content.store_number + '</div>' +
-                '<div class="detail">评论: ' + content.remark + '</div>'+
+            var detail = $('<div class="book_detail"><h1>' + content.title + '</h1>' +
+                '<div><div class="detail">作者:</div><div class="detail_info">' + content.author + '</div></div></div>' +
+                '<div><div class="detail">单价:</div><div class="detail_info">¥ ' + content.price + '</div></div></div>' +
+                '<div><div class="detail">出版时间:</div><div class="detail_info">' + getLocalTime(content.publishing_date, 0) + '</div></div></div>'+
+                '<div><div class="detail">库存:</div><div class="detail_info">' + content.store_number + ' 本</div></div></div>' +
+                '<div><div class="detail">评论:</div><div class="detail_info">' + content.remark + '</div></div></div>'+
                 '<div class="footer"><button onclick="addToCart(' + content.id + ', 1)">添加至购物车</button>' +
                 ' <button onclick="$(\'.cover\').hide()">返回</button></div>' +
                 '</div>');
-            $('.cover').append(total);
             $('.cover').append(detail);
             $('.cover').show();
         }

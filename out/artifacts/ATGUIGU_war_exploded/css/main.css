@@ -1,14 +1,177 @@
+body {
+    background-color: #323542;
+    overflow: hidden;
+}
+.topNav {
+    background-color: #0bd38a;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
+}
+.logo {
+    text-align: left;
+    position: absolute;
+    top: -21px;
+    left: 0;
+    color: white;
+    width: 18%;
+    padding-left: 15px;
+    font-size: 1.6em;
+    font-weight: 300;
+    cursor: pointer;
+}
+.navSearch {
+    position: fixed;
+    top: 5px;
+    align-self: center;
+    width: 100%;
+    height: 5%;
+}
+.navSearch input{
+    border: solid 1px white;
+    border-radius: 20px;
+    height: 70%;
+    width: 35%;
+    background: url(../img/search.png) no-repeat 3px 0px;
+    background-size: 9%;
+    color: white;
+    text-align: center;
+    font-size: 1em;
+    font-weight: 300;
+}
+.cartImg {
+    position: fixed;
+    top: 0.6%;
+    right: 16%;
+    width: 3.7%;
+    height: 3.7%;
+    text-align: center;
+}
+.tip {
+    display: flex;
+    position: fixed;
+    top: 5%;
+    right: 6%;
+    width: 24%;
+    height: 12%;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+    color: white;
+    font-size: 1em;
+    font-weight: 300;
+    text-align: center;
+    pointer-events: none;
+    vertical-align: top;
+}
+.tip_u {
+    display: block;
+    position: fixed;
+    width: 24%;
+    height: 7%;
+    top: 5%;
+    background: url("../img/tip.png") no-repeat;
+    background-size: 100%;
+}
+.tip_d {
+    display: block;
+    position: fixed;
+    width: 24%;
+    height: 7%;
+    background: url("../img/tip_d.png") no-repeat;
+    background-size: 100%;
+ }
+.cartMsg {
+    display: block;
+    top: 10%;
+    width: 100%;
+    padding-right: 5%;
+    padding-left: 5%;
+    position: relative;
+    background-color: #0bd38a;
+    bottom: 0;
+}
+.mycart {
+    position: fixed;
+    top: 0;
+    right: 8%;
+    width: 12%;
+    height: 5%;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+    background-color: #0bd38a;
+    color: white;
+    font-size: 1em;
+    font-weight: 600;
+    padding-right: 2%;
+    cursor: pointer;
+}
+.mycart p {
+    position: fixed;
+    top: -8px;
+    right: 10%;
+    width: 4%;
+    height: 4%;
+    text-align: center;
+}
+.billsbtn {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 8%;
+    height: 5%;
+    text-align: center;
+    border: 0px;
+    background-color: #0bd38a;
+    color: white;
+    font-size: 1em;
+    font-weight: 300;
+    cursor: pointer;
+}
+.billsbtn p {
+    margin-top: 7px;
+}
+div {
+    color: white;
+}
 input {
     width: 6%;
 }
 a {
     text-decoration-line: none;
 }
+.select div {
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    color: #0bd38a;
+}
 .footer {
     margin-bottom: 10px;
-    bottom: 20%;
+    bottom: 5%;
     position: absolute;
     width: 100%;
+    height: 15%;
+}
+.footer button {
+    border-radius: 10px;
+    border: solid 2px #0bd38a;
+    bottom: 5%;
+    background: none;
+    color: white;
+    height: 50%;
+    width: 30%;
+    font-size: 1em;
+    font-weight: 300;
+    cursor: pointer;
+}
+.footer_total {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    bottom: 55%;
 }
 .cart_header {
     margin-top: 30px;
@@ -18,7 +181,7 @@ a {
     display: inline-block;
     vertical-align: top;
     margin-right: 3%;
-    width: 20%;
+    width: 40%;
 }
 .headNum {
     display: inline-block;
@@ -39,7 +202,7 @@ a {
     display: inline-block;
     vertical-align: top;
     margin-right: 3%;
-    width: 20%;
+    width: 40%;
 }
 .itemNum {
     display: inline-block;
@@ -51,22 +214,15 @@ a {
 }
 .bill_user {
     margin-top: 2%;
+    margin-bottom: 2%;
     text-align: left;
-    width: 50%;
+    width: 80%;
 }
 .bill_time {
     margin-top: 3%;
     margin-bottom: 2%;
     text-align: left;
-    width: 45%;
-}
-.billsbtn {
-    position: fixed;
-    top: 4%;
-    right: 4%;
-    width: 10%;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
 }
 .Price {
     text-align: right;
@@ -86,26 +242,50 @@ a {
     margin-left: 10px;
 }
 .search {
-    margin-bottom: 20px;
-    margin-top: 10px;
+    text-align: right;
+    padding-right: 10%;
+    margin-bottom: 3%;
+    margin-top: 8%;
 }
-.vertical {
-    display: inline-block;
-    width: 25%;
+.search input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px;
+    border-bottom-color: #0bd38a;
+    border-bottom-style: solid;
+    background: none;
+    text-align: center;
+    color: white;
+    font-size: 1em;
 }
-.horizon {
+.searchbtn {
     display: inline-block;
-    vertical-align: top;
-    margin-top: 10px;
-    margin-left: 15px;
+    border-radius: 10px;
+    border: solid 2px #0bd38a;
+    background: none;
+    color: white;
+    font-size: 1em;
+    font-weight: 300;
+    cursor: pointer;
+    text-align: center;
+    width: 7%;
+}
+.author {
+    padding-top: 10px;
+    margin-left: 20px;
+    display: inline-block;
+    text-align: center;
+    width: 10%;
+}
+.book_price {
+    padding-top: 10px;
+    display: inline-block;
     width: 20%;
-}
-.book {
-    margin-top: 10px;
 }
 .page {
     margin-bottom: 10px;
-    bottom: 10%;
+    bottom: 5%;
     position: absolute;
     width: 100%;
 }
@@ -117,11 +297,11 @@ a {
 }
 .cover {
     position: fixed;
-    top: 10%;
+    top: 5%;
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(255,255,255,1);
+    background-color:  #323542;
     display: block;
     justify-content: center;
     align-items: center;
@@ -130,8 +310,18 @@ a {
     margin-top: 5%;
 }
 .detail {
+    display: inline-block;
     margin-top: 10px;
+    width: 12%;
+    text-align: left;
 }
+.detail_info {
+    display: inline-block;
+    margin-top: 10px;
+    width: 12%;
+    text-align: right;
+}
+
 .pay_detail {
     margin-top: 10px;
 }
@@ -163,10 +353,58 @@ a {
 }
 .bill {
     overflow: auto;
-    height: 68%;
+    height: 70%;
     position: relative;
     width: 100%;
 }
+
+.page_total input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px;
+    border-bottom-color: #0bd38a;
+    border-bottom-style: solid;
+    background: none;
+    text-align: center;
+    color: white;
+    font-size: 1em;
+}
+.book {
+    margin-top: 10px;
+    height: 6%;
+    width: 80%;
+    border-radius: 8px;
+    border: solid 2px #0bd38a;
+}
+
 .title {
+    padding-top: 10px;
+    text-align: left;
+    display: inline-block;
+    width: 40%;
+    cursor: pointer;
+}
+.book_btn {
+    display: inline-block;
+    background: none;
+    color: white;
+    border: none;
+    font-size: 1em;
+    font-weight: 300;
+    cursor: pointer;
+}
+.cart_body {
+    overflow: auto;
+    position: relative;
     width: 100%;
+    height: 70%;
+}
+.trade {
+    width: 60%;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: solid 2px #0bd38a;
+    padding-bottom: 10px;
 }

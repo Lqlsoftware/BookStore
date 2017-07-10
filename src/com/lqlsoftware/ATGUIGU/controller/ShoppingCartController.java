@@ -174,7 +174,7 @@ public class ShoppingCartController {
         data.put("queryList", JSONArray.toJSON(cart.getList()));
         msg.put("code", 1);
         msg.put("data", data);
-        msg.put("errMsg", (quantity > 0 ? "添加 " : "删除 ") + book.getTitle() + " 成功");
+        msg.put("errMsg", quantity > 0 ? "添加 "+ book.getTitle() + " 到购物车" : "从购物车删除 "+ book.getTitle());
         response.getWriter().write(msg.toString());
         return;
     }

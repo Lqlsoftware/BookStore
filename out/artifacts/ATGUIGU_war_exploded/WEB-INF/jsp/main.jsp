@@ -15,9 +15,29 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
     <script src="js/jquery.js"></script>
+    <script src="js/main_0.js"></script>
     <link rel="stylesheet" href="css/main.css" type="text/css">
 </head>
 <body>
-    <script src="js/main.js"></script>
+    <div class="topNav">
+        <div class="navSearch" align="center"></div>
+        <h1 class="logo" align="center">Book Mall</h1>
+        <div class="cart" align="center">
+            <div class="mycart"></div>
+        </div>
+    </div>
+   <div class="container">
+        <div class="search" align="center">
+            价格
+            ¥ <input id="from" type="tel"> - <input id="to" type="tel">
+            <div class="searchbtn">筛选</div>
+        </div>
+        <div class="books" align="center"></div>
+        <div class="page" align="center">
+            <div class="select"></div>
+            <div class="page_total"></div>
+        </div>
+        <div class="cover" align="center"></div>
+   </div>
 </body>
 </html>

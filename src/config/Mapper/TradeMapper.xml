@@ -15,6 +15,7 @@
             SELECT *
             FROM trade
             WHERE user_id = #{user_id}
+            ORDER BY trade_time DESC
         ]]>
     </select>
 

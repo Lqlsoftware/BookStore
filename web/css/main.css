@@ -185,6 +185,7 @@ a {
     margin-top: 30px;
 }
 .headName {
+    margin-top: 5px;
     text-align: left;
     display: inline-block;
     vertical-align: top;
@@ -192,6 +193,7 @@ a {
     width: 40%;
 }
 .headNum {
+    margin-top: 5px;
     display: inline-block;
     vertical-align: top;
     width: 10%;
@@ -249,11 +251,13 @@ a {
     width: 100%;
 }
 .Price {
+    margin-top: 5px;
     text-align: right;
     display: inline-block;
     vertical-align: top;
     margin-left: 2%;
     width: 10%;
+    padding-right: 5px;
 }
 .itemPrice {
     margin-top: 3px;
@@ -364,20 +368,39 @@ a {
 }
 .pay_userName input {
     width: 20%;
+    background: none;
+    color: white;
+    border: solid 2px #0bd38a;
+    border-radius: 10px;
+    padding-left: 10px;
+    height: 4%;
+    margin-left: 10px;
+    font-size: 1em;
 }
 .pay_cardId input {
     width: 20%;
+    background: none;
+    color: white;
+    border: solid 2px #0bd38a;
+    border-radius: 10px;
+    padding-left: 10px;
+    height: 4%;
+    margin-left: 10px;
+    font-size: 1em;
 }
 .trade_user {
-    width: 40%;
+    margin-top: 20px;
+    width: 70%;
     text-align: left;
 }
 .trade_time {
-    width: 40%;
+    margin-top: 20px;
+    width: 70%;
     text-align: left;
 }
 .trade_money {
-    width: 40%;
+    margin-top: 20px;
+    width: 70%;
     text-align: left;
     margin-bottom: 2%;
 }

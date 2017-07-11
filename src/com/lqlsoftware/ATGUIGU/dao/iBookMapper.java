@@ -20,4 +20,8 @@ public interface iBookMapper {
     public Integer getTotalByPrice(Integer from, Integer to);
 
     public List<Book> getBookByPrice(Integer from, Integer to, Integer fromNum, Integer pageSize);
+
+    public Integer getTotalBySearch(String context);
+
+    public List<Book> search(String context, Integer fromNum, Integer pageSize);
 }

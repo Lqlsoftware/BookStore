@@ -1,3 +1,11 @@
+input[type=number] {
+    -moz-appearance:textfield;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 body {
     background-color: #323542;
     overflow: hidden;
@@ -201,16 +209,32 @@ a {
     text-align: left;
     display: inline-block;
     vertical-align: top;
+    margin-top: 3px;
     margin-right: 3%;
     width: 40%;
 }
 .itemNum {
     display: inline-block;
     vertical-align: top;
-    width: 10%;
+    width: 14%;
+}
+.itemNum img {
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
+    width: 25%;
+    height: auto;
 }
 .itemNum input {
-    width: 60%;
+    width: 37%;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: solid 2px #0bd38a;
+    background: none;
+    color: white;
+    text-align: center;
+    font-size: 1.3em;
 }
 .bill_user {
     margin-top: 2%;
@@ -232,6 +256,7 @@ a {
     width: 10%;
 }
 .itemPrice {
+    margin-top: 3px;
     text-align: right;
     display: inline-block;
     vertical-align: top;
@@ -240,6 +265,11 @@ a {
 }
 .del {
     margin-left: 10px;
+    margin-top: 3px;
+    background: none;
+    border: solid 2px #0bd38a;
+    color: white;
+    border-radius: 10px;
 }
 .search {
     text-align: right;

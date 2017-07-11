@@ -92,13 +92,13 @@ public class BookController {
         JSONObject data = new JSONObject();
 
         // 请求参数
-        Integer from = Integer.valueOf(request.getParameter("from"));
-        Integer to = Integer.valueOf(request.getParameter("to"));
+        String from = request.getParameter("from");
+        String to = request.getParameter("to");
         Integer pageNo = Integer.valueOf(request.getParameter("pageNo"));
         Integer pageSize = Integer.valueOf(request.getParameter("pageSize"));
 
-        if (from == null || from < 1
-                || to == null || to < 1
+        if (from == null || (!from.equals("") && Integer.valueOf(from) < 1)
+                || to == null || (!to.equals("") && Integer.valueOf(to) < 1)
                 || pageNo == null || pageNo < 1
                 || pageSize == null || pageSize < 1) {
             msg.put("code", -2);
@@ -108,16 +108,76 @@ public class BookController {
             return;
         }
 
-        Integer totalNum = bookMapper.getTotalByPrice(from, to);
+        Integer totalNum = bookMapper.getTotalByPrice(
+                from.equals("") ? 0 : Integer.valueOf(from),
+                to.equals("") ? Integer.MAX_VALUE : Integer.valueOf(to)
+        );
+
         if ((pageNo - 1) * pageSize > totalNum) {
-            msg.put("code", -3);
+            msg.put("code", -5);
             msg.put("errMsg", "参数错误");
             msg.put("data", "");
             response.getWriter().write(msg.toString());
             return;
         }
 
-        List<Book> list = bookMapper.getBookByPrice(from, to, (pageNo - 1) * pageSize, pageSize);
+        List<Book> list = bookMapper.getBookByPrice(
+                from.equals("") ? 0 : Integer.valueOf(from),
+                to.equals("") ? Integer.MAX_VALUE : Integer.valueOf(to)
+                , (pageNo - 1) * pageSize, pageSize
+        );
+
+        data.put("queryList", JSONArray.toJSON(list));
+        data.put("pageNo", pageNo);
+        data.put("pageSize", pageSize);
+        data.put("pageTotal", totalNum / pageSize + (totalNum % pageSize == 0 ? 0 : 1));
+        data.put("isLast", list.size() != pageSize || totalNum == pageNo * pageSize ? 1 : 0);
+        msg.put("code", 1);
+        msg.put("data", data);
+        msg.put("errMsg", "");
+        response.getWriter().write(msg.toString());
+        return;
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public void search(HttpServletRequest request, HttpServletResponse response)
+        throws Exception {
+
+        // 设置传输数据格式
+        request.setCharacterEncoding("UTF-8");
+        response.setHeader("content-type", "xml;charset=UTF-8");
+
+        // 返回的JSON
+        JSONObject msg = new JSONObject();
+        JSONObject data = new JSONObject();
+
+        // 请求参数
+        String context = request.getParameter("s");
+        Integer pageNo = Integer.valueOf(request.getParameter("pageNo"));
+        Integer pageSize = Integer.valueOf(request.getParameter("pageSize"));
+
+        if (context == null
+                || pageNo == null || pageNo < 1
+                || pageSize == null || pageSize < 1) {
+            msg.put("code", -3);
+            msg.put("data", "");
+            msg.put("errMsg", "参数错误");
+            response.getWriter().write(msg.toString());
+            return;
+        }
+
+        String s = "%" + context + "%";
+
+        Integer totalNum = bookMapper.getTotalBySearch(s);
+        if ((pageNo - 1) * pageSize > totalNum) {
+            msg.put("code", -4);
+            msg.put("errMsg", "参数错误");
+            msg.put("data", "");
+            response.getWriter().write(msg.toString());
+            return;
+        }
+
+        List<Book> list = bookMapper.search(s, (pageNo - 1) * pageSize, pageSize);
 
         data.put("queryList", JSONArray.toJSON(list));
         data.put("pageNo", pageNo);

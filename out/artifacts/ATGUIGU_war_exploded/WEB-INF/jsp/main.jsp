@@ -30,7 +30,6 @@
         <div class="search" align="center">
             价格
             ¥ <input id="from" type="tel"> - <input id="to" type="tel">
-            <div class="searchbtn">筛选</div>
         </div>
         <div class="books" align="center"></div>
         <div class="page" align="center">

@@ -68,4 +68,21 @@
         ]]>
     </select>
 
+    <select id="getTotalBySearch" parameterType="String" resultType="Integer">
+        <![CDATA[
+            SELECT COUNT(*)
+            FROM book
+            WHERE title LIKE #{param1}
+        ]]>
+    </select>
+
+    <select id="search" resultType="Book" resultMap="bookResultMap">
+        <![CDATA[
+            SELECT *
+            FROM book
+            WHERE title LIKE #{param1}
+            LIMIT #{param2}, #{param3}
+        ]]>
+    </select>
+
 </mapper>

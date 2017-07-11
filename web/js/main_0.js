@@ -2,12 +2,16 @@ var pageNo = 1;
 var pageSize = 9;
 var pageTotal;
 var isLast;
-var isSearch = false;
+var isSearch = 0;
 var bookStorge;
 var cartStorge;
 
 $(document).ready(function () {
-    $('.navSearch').append('<input type="text">');
+    $('.navSearch').append('<input type="text" oninput="searchPageList();">');
+    $('.navSearch input').attr("onfocus", "$('.cover').css({'background': 'rgba(48,52,64,0.8)'});$('.cover').empty();$('.cover').show();");
+    $('.navSearch input').attr("onblur", "$('.cover').css({'background': 'rgba(48,52,64,1)'});$('.cover').hide();");
+    $('.search #from').attr("oninput", "getSearchPageList();");
+    $('.search #to').attr("oninput", "getSearchPageList();");
     $('.mycart').append('<img class="cartImg" src="img/cart.png"><p class="checkCart" ></p>');
     getCart();
     getPageList();
@@ -182,7 +186,9 @@ function getCartInfo() {
         var cartItem = $('<div class="cartItem"></div>');
         cartItem.append(
             '<div class="itemName">' + content.book.title + '</div>' +
-            '<div class="itemNum"><input onchange="setCart(' + content.book.id + ',this.value);" type="number" value="' + content.quantity + '"></div>' +
+            '<div class="itemNum"><img onclick="setCart(' + content.book.id + ',' + (content.quantity - 1) + ');" src="img/sub.png">' +
+            '<input onchange="setCart(' + content.book.id + ',this.value);" type="number" value="' + content.quantity + '">' +
+            '<img onclick="setCart(' + content.book.id + ',' + (content.quantity + 1) + ');" src="img/add.png"></div>' +
             '<div class="itemPrice">¥ ' + content.totalMoney +
             ' <button class="del" onclick="setCart(' + content.book.id + ',0);">删除</button></div>'
         );
@@ -267,8 +273,10 @@ function getPay() {
 
 function Page(target) {
     pageNo = target;
-    if (isSearch === true)
+    if (isSearch === 1)
         getSearchPageList();
+    else if (isSearch === 2)
+        searchPageList();
     else
         getPageList();
 }
@@ -298,7 +306,7 @@ function procPage(res) {
         if (pageNo !== pageTotal)
             $('.select').append('<div onclick="Page(pageNo+1);">下一页</div> <div onclick="Page(pageTotal);">末页 </div>');
         if (pageTotal !== 1)
-            $('.page_total').append(' 转到 ' + '<input type="tel" class="inputPageNo"> 页');
+            $('.page_total').append(' 转到 ' + '<input type="number" class="inputPageNo"> 页');
         $('.inputPageNo').change(function () {
             if (this.value <= pageTotal && this.value > 0 && this.value !== pageNo) {
                 Page(this.value);
@@ -320,19 +328,36 @@ function getPageList () {
 }
 
 function getSearchPageList() {
-    var from = $('#from').val();
-    var to = $('#to').val();
-    if (from === "" || from < 0
-        || to === "")
+    var from = $('#from').val().replace(/[^\d]/g,"");
+    $('#from').val(from);
+    var to = $('#to').val().replace(/[^\d]/g,"");
+    $('#to').val(to);
+    if (from < 0 || to < 0)
         return;
-    if (isSearch === false)
+    if (isSearch !== 1)
         pageNo = 1;
-    isSearch = true;
+    isSearch = 1;
     $.ajax({
         type: "GET",
         url: 'getPrice?from=' + from + '&to=' + to + '&pageNo=' + pageNo + '&pageSize=' + pageSize,
         success: function(res) {
             procPage(res);
+        },
+        dataType: "json"
+    });
+}
+
+function searchPageList() {
+    var s = $('.navSearch input').val();
+    if (isSearch !== 2)
+        pageNo = 1;
+    isSearch = 2;
+    $.ajax({
+        type: "GET",
+        url: 'search?s=' + s + '&pageNo=' + pageNo + '&pageSize=' + pageSize,
+        success: function(res) {
+            procPage(res);
+            $('.cover').hide();
         },
         dataType: "json"
     });

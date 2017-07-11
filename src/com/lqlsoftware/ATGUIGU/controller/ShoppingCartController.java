@@ -114,7 +114,7 @@ public class ShoppingCartController {
         data.put("queryList", JSONArray.toJSON(cart.getList()));
         msg.put("code", 1);
         msg.put("data", data);
-        msg.put("errMsg", (quantity > 0 ? "添加 " : "删除 ") + book.getTitle() + " 成功");
+        msg.put("errMsg", quantity > 0 ? "添加 "+ book.getTitle() + " 到购物车" : "从购物车删除 "+ book.getTitle());
         response.getWriter().write(msg.toString());
         return;
     }
@@ -159,13 +159,14 @@ public class ShoppingCartController {
 
         Book book = bookMapper.getBookById(id);
         if (book == null) {
-            msg.put("code", -1);
+            msg.put("code", -2);
             msg.put("data", data);
             msg.put("errMsg", "未找到该书");
             response.getWriter().write(msg.toString());
             return;
         }
 
+        boolean isAdd = quantity - cart.getBookNum(book.getId()) > 0;
         cart.add(book, quantity - cart.getBookNum(book.getId()));
         request.getSession().setAttribute("cart", cart);
 
@@ -174,7 +175,7 @@ public class ShoppingCartController {
         data.put("queryList", JSONArray.toJSON(cart.getList()));
         msg.put("code", 1);
         msg.put("data", data);
-        msg.put("errMsg", quantity > 0 ? "添加 "+ book.getTitle() + " 到购物车" : "从购物车删除 "+ book.getTitle());
+        msg.put("errMsg", isAdd == true ? "添加 "+ book.getTitle() + " 到购物车" : "从购物车删除 "+ book.getTitle());
         response.getWriter().write(msg.toString());
         return;
     }
